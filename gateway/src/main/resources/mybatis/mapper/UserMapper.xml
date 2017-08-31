@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.demo.core.mapper.UserMapper">
+
+    <insert id="save" parameterType="User">
+        insert into t_user(username,age) values(#{userName,jdbcType=VARCHAR},#{age,jdbcType=NUMERIC})
+    </insert>
+
+    <select id="selectById" resultType="User">
+        select * from t_user where id = #{id,jdbcType=NUMERIC}
+    </select>
+
+    <select id="selectUserById" resultMap="BaseResultMap">
+        select * from test_user where id = #{id}
+    </select>
+
+    <update id="updateById" parameterType="User">
+        update t_user set
+        username = #{userName,jdbcType=VARCHAR} ,
+        age = #{age,jdbcType=NUMERIC}
+        where id = #{id,jdbcType=NUMERIC}
+    </update>
+
+    <delete id="deleteById">
+        delete from t_user where id = #{id,jdbcType=NUMERIC}
+    </delete>
+
+    <select id="queryAll" resultType="User">
+        select * from t_user
+    </select>
+
+    <resultMap id="BaseResultMap" type="User">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="money" jdbcType="DECIMAL" property="money"/>
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
+        <result column="modify_date" jdbcType="TIMESTAMP" property="modifyDate"/>
+        <result column="is_deleted" jdbcType="TINYINT" property="isDeleted"/>
+    </resultMap>
+</mapper>
